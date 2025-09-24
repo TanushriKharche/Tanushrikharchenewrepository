@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Journey - Web Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        :root {
+            /* Dark Theme Colors - More Vibrant */
+            --bg-color: #0c1015;
+            --nav-bg: rgba(13, 17, 23, 0.7);
+            --card-bg: #161b22;
+            --primary-color: #2a64c4; /* Brighter, more energetic blue */
+            --text-color: #e2e8f0;
+            --highlight-color: #d1d5db;
+            --accent-green: #5ad889;
+            --accent-purple: #9b59b6;
+            --accent-orange: #ff9f1c; /* Vibrant orange */
+            --button-hover: #4e83d8;
+            --button-primary: #2a64c4;
+            --button-secondary: #9b59b6;
+            --button-success: #5ad889;
+        }
+
+        /* Light Theme Colors (overrides) */
+        body.light-theme {
+            --bg-color: #f0f4f8;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --card-bg: #ffffff;
+            --primary-color: #2a64c4;
+            --text-color: #334155;
+            --highlight-color: #0f172a;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --button-hover: #60a5fa;
+            --button-primary: #2a64c4;
+            --button-secondary: #8b5cf6;
+            --button-success: #10b981;
+            color: var(--text-color);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-orange);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .heading h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(45deg, var(--highlight-color), var(--text-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heading span {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        #theme-toggle {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.9rem 1.2rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Learning Journey Specific Styles */
+        .journey-hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .journey-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+            position: relative;
+        }
+
+        .journey-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
+            margin-bottom: 4rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-orange);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            left: 50%;
+            margin-left: -12.5px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .tech-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .day-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .topics-list {
+            background-color: rgba(42, 100, 196, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .topics-list h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .topics-list ul {
+            padding-left: 1.5rem;
+        }
+
+        .topics-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .assignment-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--accent-green);
+            color: white;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .assignment-btn:hover {
+            background-color: #4ac978;
+        }
+
+        .index-sidebar {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 250px;
+        }
+
+        .index-sidebar h3 {
+            margin-top: 0;
+            color: var(--accent-orange);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .index-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-links li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .index-links li:before {
+            content: "•";
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .index-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            background-color: rgba(42, 100, 196, 0.05);
+            font-weight: 600;
+            border-left: 3px solid transparent;
+        }
+
+        .index-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(42, 100, 196, 0.1);
+            border-left: 3px solid var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .index-links .day-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #2d3748;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Code Examples */
+        .code-example {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-keyword {
+            color: #ff79c6;
+        }
+
+        .code-function {
+            color: #50fa7b;
+        }
+
+        .code-string {
+            color: #f1fa8c;
+        }
+
+        .code-comment {
+            color: #6272a4;
+        }
+
+        .interactive-demo {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .demo-title {
+            color: var(--accent-orange);
+            margin-top: 0;
+        }
+
+        .demo-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .demo-button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .demo-output {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            min-height: 50px;
+        }
+
+        /* Animated Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .index-sidebar {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .theme-toggle-container {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary);
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            background-color: var(--button-hover);
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div id="particles-js"></div>
+    
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="fas fa-moon"></button>
+    </div>
+
+    <div class="main-container">
+        <section class="journey-hero">
+            <h1>My Learning Journey</h1>
+            <p>Exploring web development, design, and everything in between</p>
+            <a href="./index.html" class="back-to-portfolio">← Back to Portfolio</a>
+        </section>
+
+        <div class="timeline-container">
+            <div class="index-sidebar">
+                <h3>Learning Index</h3>
+                <ul class="index-links">
+                    <li><a href="#day1"><span class="day-number">1</span> HTML Basics</a></li>
+                    <li><a href="#day2"><span class="day-number">2</span> Images & Links</a></li>
+                    <li><a href="#day3"><span class="day-number">3</span> Advanced HTML & Forms</a></li>
+                    <li><a href="#day4"><span class="day-number">4</span> Introduction to CSS</a></li>
+                    <li><a href="#day5"><span class="day-number">5</span> Advanced CSS Properties</a></li>
+                    <li><a href="#day6"><span class="day-number">6</span> JavaScript Basics</a></li>
+                    <li><a href="#day7"><span class="day-number">7</span> Advanced JavaScript</a></li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item" id="day1">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 1</h2>
+                            <span class="tech-badge">HTML</span>
+                        </div>
+                        <h3>HTML Basics</h3>
+                        <p>On the first day, I dove into the basics of HTML. I learned how to structure an HTML webpage using VS Code and explored various HTML tags such as headings, paragraphs, lists, and the div tag.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="HTML Basics" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>HTML document structure and DOCTYPE declaration</li>
+                                <li>Heading tags (h1 to h6) and their semantic importance</li>
+                                <li>Paragraph, bold, italic, and other text formatting tags</li>
+                                <li>Lists (ordered, unordered, and definition lists)</li>
+                                <li>Div and span elements for grouping and styling</li>
+                                <li>Basic attributes like id, class, and style</li>
+                                <li>HTML comments and best practices</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="./Assignment no 1.html" class="assignment-btn">View Assignment 1</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day2">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 2</h2>
+                            <span class="tech-badge">HTML</span>
+                        </div>
+                        <h3>Working with Images & Links</h3>
+                        <p>On day two, I learned how to use the img tag to add images and the a tag to create hyperlinks. I also learned to work with superscripts and subscripts for formatting content, and explored different types of links including internal, external, and anchor links.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Images and Links" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Image tags, src, alt, and other attributes</li>
+                                <li>Hyperlinks and anchor tags with href attribute</li>
+                                <li>Superscript and subscript formatting for scientific notation</li>
+                                <li>Linking to external resources and internal pages</li>
+                                <li>Image optimization techniques and formats (JPEG, PNG, SVG)</li>
+                                <li>Creating bookmark links within the same page</li>
+                                <li>Using target attribute to control link behavior</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="./Assignment no 2.html" class="assignment-btn">View Assignment 2</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day3">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 3</h2>
+                            <span class="tech-badge">HTML</span>
+                        </div>
+                        <h3>Advanced HTML & Forms</h3>
+                        <p>On the third day, I explored more advanced HTML concepts, including creating tables with table elements and building forms to collect user input. It was a great hands-on experience to understand HTML structure better, and I learned about form validation and accessibility considerations.</p>
+                        
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqMYB7z1YjomX7pUgEYmKDuwesXXqiBjUAw&s" alt="HTML Forms" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>HTML table structure with thead, tbody, and tfoot</li>
+                                <li>Form elements and attributes for user input</li>
+                                <li>Input types (text, email, password, radio, checkbox, etc.)</li>
+                                <li>Form validation basics using HTML5 attributes</li>
+                                <li>Structuring complex forms with fieldset and legend</li>
+                                <li>Select dropdowns, textareas, and other form controls</li>
+                                <li>Accessibility considerations with labels and ARIA attributes</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="./Assignment no 3.html" class="assignment-btn">View Assignment 3</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day4">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 4</h2>
+                            <span class="tech-badge">CSS</span>
+                        </div>
+                        <h3>Introduction to CSS</h3>
+                        <p>On the fourth day, we started learning CSS (Cascading Style Sheets). We covered the basics of CSS, its syntax, and how it is applied to style websites. We explored basic properties like background-color, color, font-size, font-family, and text-align, and learned about different ways to include CSS in HTML documents.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="CSS Introduction" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>CSS syntax, selectors, and specificity</li>
+                                <li>Color systems (named colors, HEX, RGB, HSL)</li>
+                                <li>Background properties and gradients</li>
+                                <li>Typography and font properties (family, size, weight)</li>
+                                <li>Text alignment, spacing, and decoration</li>
+                                <li>Inline styles vs internal vs external CSS</li>
+                                <li>CSS comments and organization best practices</li>
+                                <li>Basic layout with display properties</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="./Assignment no 4.html" class="assignment-btn">View Assignment 4</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day5">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 5</h2>
+                            <span class="tech-badge">CSS</span>
+                        </div>
+                        <h3>Advanced CSS Properties</h3>
+                        <p>On the fifth day we covered advanced CSS properties. We learned about the box model in CSS, which includes content, padding, border, and margin. This box model is used to differentiate sections of a webpage. We also explored the display property, which is used to style elements, including the display: flex property and various positioning methods such as relative, absolute, and fixed.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Advanced CSS" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>CSS Box Model (content, padding, border, margin)</li>
+                                <li>Display properties (block, inline, inline-block, none)</li>
+                                <li>Positioning (relative, absolute, fixed, sticky)</li>
+                                <li>Flexbox layout and its properties</li>
+                                <li>Responsive design principles and media queries</li>
+                                <li>CSS transitions and basic animations</li>
+                                <li>Pseudo-classes and pseudo-elements</li>
+                                <li>CSS variables for maintainable code</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="./Assignment no 5.html" class="assignment-btn">View Assignment 5</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day6">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 6</h2>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <h3>JavaScript Basics</h3>
+                        <p>On the sixth day, I started learning JavaScript, the programming language that makes web pages interactive. I learned about variables, data types, operators, and basic control structures. JavaScript allows us to manipulate HTML and CSS, handle user interactions, and create dynamic content.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="JavaScript Basics" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>JavaScript syntax and basic structure</li>
+                                <li>Variables (var, let, const) and data types</li>
+                                <li>Operators (arithmetic, comparison, logical)</li>
+                                <li>Conditional statements (if, else, switch)</li>
+                                <li>Loops (for, while, do-while)</li>
+                                <li>Functions and function expressions</li>
+                                <li>Basic DOM manipulation</li>
+                                <li>Event handling basics</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="code-example">
+                            <span class="code-keyword">let</span> message = <span class="code-string">"Hello, World!"</span>;<br>
+                            <span class="code-keyword">function</span> <span class="code-function">showMessage</span>() {<br>
+                            &nbsp;&nbsp;alert(message);<br>
+                            }<br>
+                            <span class="code-comment">// Call the function</span><br>
+                            <span class="code-function">showMessage</span>();
+                        </div>
+                        
+                        <div class="interactive-demo">
+                            <h4 class="demo-title">Interactive Demo: Simple Calculator</h4>
+                            <p>Enter two numbers and see JavaScript in action:</p>
+                            <input type="number" id="num1" placeholder="First number" style="padding: 0.5rem; margin: 0.5rem;">
+                            <input type="number" id="num2" placeholder="Second number" style="padding: 0.5rem; margin: 0.5rem;">
+                            <button class="demo-button" onclick="calculateSum()">Add Numbers</button>
+                            <button class="demo-button" onclick="calculateProduct()">Multiply Numbers</button>
+                            <div class="demo-output" id="calcOutput">
+                                Result will appear here
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day7">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 7</h2>
+                            <span class="tech-badge">JavaScript</span>
+                        </div>
+                        <h3>Advanced JavaScript Concepts</h3>
+                        <p>On the seventh day, I delved into more advanced JavaScript concepts including objects, arrays, and more complex functions. I learned about scope, closures, and the concept of 'this' in JavaScript. These concepts are fundamental to writing efficient and maintainable JavaScript code.</p>
+                        
+                        <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Advanced JavaScript" class="day-image">
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Objects and object-oriented programming basics</li>
+                                <li>Arrays and array methods (map, filter, reduce)</li>
+                                <li>Scope (global, function, block) and hoisting</li>
+                                <li>Closures and higher-order functions</li>
+                                <li>The 'this' keyword and its behavior</li>
+                                <li>ES6 features (arrow functions, template literals)</li>
+                                <li>Error handling with try/catch</li>
+                                <li>Asynchronous JavaScript basics</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="code-example">
+                            <span class="code-comment">// Array methods example</span><br>
+                            <span class="code-keyword">const</span> numbers = [1, 2, 3, 4, 5];<br>
+                            <span class="code-keyword">const</span> doubled = numbers.<span class="code-function">map</span>(num => num * 2);<br>
+                            <span class="code-keyword">const</span> evenNumbers = numbers.<span class="code-function">filter</span>(num => num % 2 === 0);<br>
+                            <span class="code-keyword">const</span> sum = numbers.<span class="code-function">reduce</span>((acc, num) => acc + num, 0);<br>
+                            <br>
+                            <span class="code-comment">// Object example</span><br>
+                            <span class="code-keyword">const</span> person = {<br>
+                            &nbsp;&nbsp;name: <span class="code-string">"John"</span>,<br>
+                            &nbsp;&nbsp;age: 30,<br>
+                            &nbsp;&nbsp;greet() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.<span class="code-function">log</span>(<span class="code-string">`Hello, my name is <span class="code-keyword">${</span><span class="code-keyword">this</span>.name<span class="code-keyword">}</span>`</span>);<br>
+                            &nbsp;&nbsp;}<br>
+                            };
+                        </div>
+                        
+                        <div class="interactive-demo">
+                            <h4 class="demo-title">Interactive Demo: Array Manipulation</h4>
+                            <p>See how JavaScript can manipulate arrays:</p>
+                            <button class="demo-button" onclick="demoMap()">Double Numbers</button>
+                            <button class="demo-button" onclick="demoFilter()">Filter Even Numbers</button>
+                            <button class="demo-button" onclick="demoReduce()">Calculate Sum</button>
+                            <div class="demo-output" id="arrayOutput">
+                                Original array: [1, 2, 3, 4, 5]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <h3>Learning Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="days-completed">7</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="topics-covered">40+</div>
+                        <div class="stat-label">Topics Covered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="assignments-done">5</div>
+                        <div class="stat-label">Assignments Done</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bar
+            const progressFill = document.getElementById('progress-fill');
+            setTimeout(() => {
+                progressFill.style.width = '70%'; // 7 out of 10 days (example)
+            }, 500);
+
+            // Smooth scrolling for index links
+            const indexLinks = document.querySelectorAll('.index-links a');
+            indexLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add animation to timeline items when they come into view
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light-theme');
+                themeToggleBtn.classList.remove('fa-moon');
+                themeToggleBtn.classList.add('fa-sun');
+            } else {
+                body.classList.add('light-theme');
+                themeToggleBtn.classList.remove('fa-sun');
+                themeToggleBtn.classList.add('fa-moon');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-theme');
+                
+                if (body.classList.contains('light-theme')) {
+                    themeToggleBtn.classList.remove('fa-sun');
+                    themeToggleBtn.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeToggleBtn.classList.remove('fa-moon');
+                    themeToggleBtn.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#8cdeff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 20,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#e2e8f0",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 200,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+
+        // JavaScript for Day 6 interactive demos
+        function calculateSum() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const result = num1 + num2;
+            document.getElementById('calcOutput').textContent = `${num1} + ${num2} = ${result}`;
+        }
+
+        function calculateProduct() {
+            const num1 = parseFloat(document.getElementById('num1').value) || 0;
+            const num2 = parseFloat(document.getElementById('num2').value) || 0;
+            const result = num1 * num2;
+            document.getElementById('calcOutput').textContent = `${num1} × ${num2} = ${result}`;
+        }
+
+        // JavaScript for Day 7 interactive demos
+        const numbers = [1, 2, 3, 4, 5];
+        
+        function demoMap() {
+            const doubled = numbers.map(num => num * 2);
+            document.getElementById('arrayOutput').textContent = 
+                `Original: [${numbers}] → Doubled: [${doubled}]`;
+        }
+        
+        function demoFilter() {
+            const evenNumbers = numbers.filter(num => num % 2 === 0);
+            document.getElementById('arrayOutput').textContent = 
+                `Original: [${numbers}] → Even numbers: [${evenNumbers}]`;
+        }
+        
+        function demoReduce() {
+            const sum = numbers.reduce((acc, num) => acc + num, 0);
+            document.getElementById('arrayOutput').textContent = 
+                `Original: [${numbers}] → Sum: ${sum}`;
+        }
+    </script>
+</body>
+</html>

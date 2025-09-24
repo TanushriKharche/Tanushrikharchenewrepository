@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Journey - Java Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        :root {
+            /* Dark Theme Colors - More Vibrant */
+            --bg-color: #0c1015;
+            --nav-bg: rgba(13, 17, 23, 0.7);
+            --card-bg: #161b22;
+            --primary-color: #2a64c4; /* Brighter, more energetic blue */
+            --text-color: #e2e8f0;
+            --highlight-color: #d1d5db;
+            --accent-green: #5ad889;
+            --accent-purple: #9b59b6;
+            --accent-orange: #ff9f1c; /* Vibrant orange */
+            --button-hover: #4e83d8;
+            --button-primary: #2a64c4;
+            --button-secondary: #9b59b6;
+            --button-success: #5ad889;
+        }
+
+        /* Light Theme Colors (overrides) */
+        body.light-theme {
+            --bg-color: #f0f4f8;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --card-bg: #ffffff;
+            --primary-color: #2a64c4;
+            --text-color: #334155;
+            --highlight-color: #0f172a;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --button-hover: #60a5fa;
+            --button-primary: #2a64c4;
+            --button-secondary: #8b5cf6;
+            --button-success: #10b981;
+            color: var(--text-color);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-orange);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .heading h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(45deg, var(--highlight-color), var(--text-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heading span {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        #theme-toggle {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.9rem 1.2rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Learning Journey Specific Styles */
+        .journey-hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0;
+            margin-top: 0; 
+        }
+        
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .journey-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+            position: relative;
+        }
+
+        .journey-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
+            margin-bottom: 4rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-orange);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            left: 50%;
+            margin-left: -12.5px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .tech-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .day-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .topics-list {
+            background-color: rgba(42, 100, 196, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .topics-list h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .topics-list ul {
+            padding-left: 1.5rem;
+        }
+
+        .topics-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .index-sidebar {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 250px;
+        }
+
+        .index-sidebar h3 {
+            margin-top: 0;
+            color: var(--accent-orange);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .index-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-links li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .index-links li:before {
+            content: "•";
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .index-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            background-color: rgba(42, 100, 196, 0.05);
+            font-weight: 600;
+            border-left: 3px solid transparent;
+        }
+
+        .index-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(42, 100, 196, 0.1);
+            border-left: 3px solid var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .index-links .day-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #2d3748;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .index-sidebar {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .theme-toggle-container {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary);
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            background-color: var(--button-hover);
+        }
+
+        .resource-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-card h4 {
+            margin-top: 0;
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .resource-card ul {
+            padding-left: 1.5rem;
+        }
+
+        .resource-card li a {
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .resource-card li a:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body class="light-theme">
+    <div id="particles-js"></div>
+
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="fas fa-moon"></button>
+    </div>
+
+    <div class="main-container">
+        <section class="journey-hero">
+            <h1>My Learning Journey - Java Programming</h1>
+            <p>Mastering Java: From object-oriented fundamentals to advanced control flow.</p>
+            <a href="./index.html" class="back-to-portfolio">← Back to Portfolio</a>
+        </section>
+
+        <div class="timeline-container">
+            <div class="index-sidebar">
+                <h3>Learning Index</h3>
+                <ul class="index-links">
+                    <li><a href="#day1"><span class="day-number">1</span> Java & OOP Basics</a></li>
+                    <li><a href="#day2"><span class="day-number">2</span> JVM, JRE, JDK</a></li>
+                    <li><a href="#day3"><span class="day-number">3</span> Java Features & Structure</a></li>
+                    <li><a href="#day4"><span class="day-number">4</span> Variables & Data Types</a></li>
+                    <li><a href="#day5"><span class="day-number">5</span> Expressions & Operators</a></li>
+                    <li><a href="#day6"><span class="day-number">6</span> Conversion & Flow Control</a></li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item" id="day1">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 1</h2>
+                            <span class="tech-badge">Java & OOP</span>
+                        </div>
+                        <h3>Java and Object-Oriented Programming</h3>
+                        <p>On the first day, I learned the basics of Java and the fundamentals of **Object-Oriented Programming (OOP)**. I discovered that Java is a high-level, class-based, and object-oriented language designed with the **"write once, run anywhere" (WORA)** philosophy. I also understood the modularity and reusability benefits of OOP compared to procedural programming.</p>
+                        
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Introduction to Java: High-level, class-based, object-oriented language</li>
+                                <li>The Write Once, Run Anywhere (WORA) capability</li>
+                                <li>The need for OOP: Modularity, code reusability, pluggability</li>
+                                <li>Procedural vs Object-Oriented Programming paradigm differences</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day2">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 2</h2>
+                            <span class="tech-badge">Java Platform</span>
+                        </div>
+                        <h3>JVM, JRE, JDK and Basic Programming</h3>
+                        <p>On the second day, I delved into the Java platform components: the **JVM (Java Virtual Machine)**, **JRE (Java Runtime Environment)**, and **JDK (Java Development Kit)**. I understood their roles in compiling and running Java applications. I then wrote my very first "Hello, World!" program, a classic first step in any new programming language, and learned about the diverse applications of Java, from desktop GUIs to enterprise applications.</p>
+                        <img src="./aiml1.png" alt="JVM, JRE, JDK components" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>JVM: The abstract machine that provides the runtime for bytecode execution</li>
+                                <li>JRE: The implementation of the JVM that provides libraries to run applications</li>
+                                <li>JDK: The development tools like compilers, debuggers, and documentation tools</li>
+                                <li>Applications of Java in various domains</li>
+                                <li>Writing and compiling a basic Java program</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day3">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 3</h2>
+                            <span class="tech-badge">Java Syntax</span>
+                        </div>
+                        <h3>Java Features & Program Structure</h3>
+                        <p>This day focused on the core features and structure of Java. I learned about the **basic syntax** of a Java program, including how to define a **class**, the main method, and how to use comments. I also explored key Java features like being object-oriented, platform-independent, robust, and secure, understanding why it's a popular choice for large-scale applications.</p>
+                        <img src="./aiml2.png" alt="Java code structure" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Key features of Java: Object-oriented, Platform-independent, Robust, Secure</li>
+                                <li>Basic program structure: class declaration, main method</li>
+                                <li>Understanding Java's simple, portable, and dynamic nature</li>
+                                <li>Writing single-line and multi-line comments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day4">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 4</h2>
+                            <span class="tech-badge">Java Fundamentals</span>
+                        </div>
+                        <h3>Variables, Data Types & Operators</h3>
+                        <p>On the fourth day, I learned about **variables**, **primitive data types**, **literals**, and **operators** in Java. I studied the size and description of each primitive type, such as `int`, `double`, and `boolean`. I also gained a solid understanding of the different types of operators used for arithmetic, assignment, comparison, and logic to perform various operations on data.</p>
+                        <img src="./aiml3.png" alt="Java variables and operators" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Declaring and initializing variables</li>
+                                <li>Primitive data types: `byte`, `short`, `int`, `long`, `float`, `double`, `boolean`, `char`</li>
+                                <li>Java operators: Arithmetic, Assignment, Comparison, Logical</li>
+                                <li>Understanding integer and floating-point literals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day5">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 5</h2>
+                            <span class="tech-badge">Expressions & Operators</span>
+                        </div>
+                        <h3>Operator Precedence and Expression Evaluation</h3>
+                        <p>On the fifth day, we covered **expressions, precedence, and associativity** in Java. I learned that an expression is a combination of variables, operators, and method invocations. A key part of this day was understanding the **Operator Precedence Rules**, which determine the order of evaluation in complex expressions. I also studied **associativity** to handle expressions with operators of the same precedence.</p>
+                        <img src="./aiml4.png" alt="Java expressions and operators" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Understanding expressions in Java</li>
+                                <li>Operator Precedence Rules: `postfix`, `unary`, `multiplicative`, etc.</li>
+                                <li>Associativity: Left-to-right vs. right-to-left evaluation</li>
+                                <li>Ternary and assignment operators</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day6">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 6</h2>
+                            <span class="tech-badge">Control Structures</span>
+                        </div>
+                        <h3>Type Conversion and Control Structures</h3>
+                        <p>This day focused on how to manage data types and control the flow of a program. I learned about **type conversion**, specifically **widening** and **narrowing casting**. I also mastered the different **flow control structures** that Java provides, including **conditional statements** (`if`, `else`, `switch`), **looping statements** (`for`, `while`, `do-while`), and **branching statements** (`break`, `continue`, `return`), which are essential for creating dynamic and logical programs.</p>
+                        <img src="./aiml5.png" alt="Java control flow and casting" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Primitive Conversion and Casting: Widening vs. Narrowing</li>
+                                <li>Flow Control Structures: Conditional, Looping, and Branching statements</li>
+                                <li>Implementing `if-else` and `switch` statements</li>
+                                <li>Using `for`, `while`, and `do-while` loops for iteration</li>
+                                <li>Keywords like `break`, `continue`, and `return`</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <section class="section">
+                    <div class="heading">
+                        <h2>Additional Resources</h2>
+                    </div>
+                    <div class="resource-section">
+                        <div class="resource-card">
+                            <h4>Recommended Books</h4>
+                            <ul>
+                                <li>"Head First Java" by Kathy Sierra & Bert Bates</li>
+                                <li>"Effective Java" by Joshua Bloch</li>
+                                <li>"Java: The Complete Reference" by Herbert Schildt</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h4>Online Resources</h4>
+                            <ul>
+                                <li>Oracle Java Tutorials</li>
+                                <li>W3Schools Java Tutorial</li>
+                                <li>GeeksforGeeks Java Programming</li>
+                                <li>Java Code Geeks</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <h4>Practice Platforms</h4>
+                            <ul>
+                                <li>HackerRank Java Challenges</li>
+                                <li>LeetCode Java Problems</li>
+                                <li>Codecademy Java Course</li>
+                                <li>CodingBat Java Exercises</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="progress-container">
+                <h3>Learning Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="days-completed">6</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="topics-covered">40+</div>
+                        <div class="stat-label">Topics Covered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="assignments-done">6</div>
+                        <div class="stat-label">Assignments Done</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bar (adjusting for 6 days out of a hypothetical total, e.g., 7 days)
+            const progressFill = document.getElementById('progress-fill');
+            setTimeout(() => {
+                progressFill.style.width = '85%';
+            }, 500);
+
+            // Smooth scrolling for index links
+            const indexLinks = document.querySelectorAll('.index-links a');
+            indexLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 20;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add animation to timeline items when they come into view
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light-theme');
+                themeToggleBtn.classList.remove('fa-moon');
+                themeToggleBtn.classList.add('fa-sun');
+            } else {
+                body.classList.add('light-theme');
+                themeToggleBtn.classList.remove('fa-sun');
+                themeToggleBtn.classList.add('fa-moon');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-theme');
+                
+                if (body.classList.contains('light-theme')) {
+                    themeToggleBtn.classList.remove('fa-sun');
+                    themeToggleBtn.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeToggleBtn.classList.remove('fa-moon');
+                    themeToggleBtn.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#8cdeff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 20,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#e2e8f0",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 200,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+</body>
+</html>

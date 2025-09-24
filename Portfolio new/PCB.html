@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Journey - PCB Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        :root {
+            /* Dark Theme Colors - More Vibrant */
+            --bg-color: #0c1015;
+            --nav-bg: rgba(13, 17, 23, 0.7);
+            --card-bg: #161b22;
+            --primary-color: #2a64c4; /* Brighter, more energetic blue */
+            --text-color: #e2e8f0;
+            --highlight-color: #d1d5db;
+            --accent-green: #5ad889;
+            --accent-purple: #9b59b6;
+            --accent-orange: #ff9f1c; /* Vibrant orange */
+            --button-hover: #4e83d8;
+            --button-primary: #2a64c4;
+            --button-secondary: #9b59b6;
+            --button-success: #5ad889;
+        }
+
+        /* Light Theme Colors (overrides) */
+        body.light-theme {
+            --bg-color: #f0f4f8;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --card-bg: #ffffff;
+            --primary-color: #2a64c4;
+            --text-color: #334155;
+            --highlight-color: #0f172a;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --button-hover: #60a5fa;
+            --button-primary: #2a64c4;
+            --button-secondary: #8b5cf6;
+            --button-success: #10b981;
+            color: var(--text-color);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-orange);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .heading h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(45deg, var(--highlight-color), var(--text-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heading span {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        #theme-toggle {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.9rem 1.2rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Learning Journey Specific Styles */
+        .journey-hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0;
+            margin-top: 0; /* Ensures there is no blank space at the top */
+        }
+        
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1616897184288-66236b281f6d?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .journey-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+            position: relative;
+        }
+
+        .journey-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
+            margin-bottom: 4rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-orange);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            left: 50%;
+            margin-left: -12.5px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .tech-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .day-image-container {
+            margin-top: 1.5rem; /* Space above image section */
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+            padding-top: 1.5rem; /* Space below separator */
+        }
+
+        .day-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .day-image-caption {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            text-align: center;
+        }
+
+        .topics-list {
+            background-color: rgba(42, 100, 196, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .topics-list h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .topics-list ul {
+            padding-left: 1.5rem;
+        }
+
+        .topics-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .assignment-btn, .code-example, .interactive-demo {
+            display: none;
+        }
+
+        .index-sidebar {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 250px;
+        }
+
+        .index-sidebar h3 {
+            margin-top: 0;
+            color: var(--accent-orange);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .index-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-links li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .index-links li:before {
+            content: "•";
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .index-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            background-color: rgba(42, 100, 196, 0.05);
+            font-weight: 600;
+            border-left: 3px solid transparent;
+        }
+
+        .index-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(42, 100, 196, 0.1);
+            border-left: 3px solid var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .index-links .day-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #2d3748;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .index-sidebar {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .theme-toggle-container {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary);
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            background-color: var(--button-hover);
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div id="particles-js"></div>
+    
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="fas fa-moon"></button>
+    </div>
+
+    <div class="main-container">
+        <section class="journey-hero">
+            <h1>My Learning Journey - PCB Design with KiCad</h1>
+            <p>From schematic diagrams to circuit board layout and practical projects.</p>
+            <a href="./index.html" class="back-to-portfolio">← Back to Portfolio</a>
+        </section>
+
+        <div class="timeline-container">
+            <div class="index-sidebar">
+                <h3>Learning Index</h3>
+                <ul class="index-links">
+                    <li><a href="#day1"><span class="day-number">1</span> Schematic & KiCad</a></li>
+                    <li><a href="#day2"><span class="day-number">2</span> AC-to-AC Converter</a></li>
+                    <li><a href="#day3"><span class="day-number">3</span> DC Motor Speed Controller</a></li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item" id="day1">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 1</h2>
+                            <span class="tech-badge">KiCad</span>
+                        </div>
+                        <h3>Schematic Diagrams & KiCad Installation</h3>
+                        <p>My PCB design journey started with the fundamentals: understanding **schematic diagrams** and setting up my design environment. I installed and configured **KiCad**, an open-source EDA suite, and learned how to use its **schematic editor** to create a blueprint of an electronic circuit. This day was crucial for grasping how components are represented and connected before any physical layout begins.</p>
+                        <div class="topics-list">
+                            <h4>Key Learnings:</h4>
+                            <ul>
+                                <li>Understanding the purpose and components of a schematic diagram.</li>
+                                <li>Installing and configuring KiCad for a new project.</li>
+                                <li>Using the KiCad schematic editor to place components and draw nets.</li>
+                                <li>Annotating components and performing an Electrical Rules Check (ERC).</li>
+                            </ul>
+                        </div>
+                        <div class="day-image-container">
+                            <img src="./3d1.jpg" alt="A detailed schematic diagram in KiCad." class="day-image">
+                            <p class="day-image-caption">Creating the circuit's blueprint in KiCad's schematic editor.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day2">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 2</h2>
+                            <span class="tech-badge">KiCad Project</span>
+                        </div>
+                        <h3>Designing an AC-to-AC Converter</h3>
+                        <p>I applied my newfound skills to a practical project: designing a PCB for an **AC-to-AC converter**. I transitioned from the schematic to the **PCB layout editor** in KiCad. This hands-on experience taught me how to place components, route copper traces, and use the **3D viewer** to inspect the design. This project highlighted the importance of proper component placement and trace routing for a functional and manufacturable board.</p>
+                        <div class="topics-list">
+                            <h4>Project Steps & Skills Developed:</h4>
+                            <ul>
+                                <li>Creating a netlist and importing it into the KiCad PCB editor.</li>
+                                <li>Placing components on the board and routing copper traces.</li>
+                                <li>Running Design Rules Check (DRC) to find errors.</li>
+                                <li>Using the 3D viewer to check for physical fit and clearance.</li>
+                                <li>Generating Gerber files for fabrication.</li>
+                            </ul>
+                        </div>
+                        <div class="day-image-container">
+                            <img src="./3d2.jpg" alt="3D model of a designed PCB for an AC-to-AC converter." class="day-image">
+                            <p class="day-image-caption">Laying out and visualizing the AC-to-AC converter PCB in 3D.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day3">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 3</h2>
+                            <span class="tech-badge">KiCad Project</span>
+                        </div>
+                        <h3>DC Motor Speed Controller</h3>
+                        <p>On the final day, I tackled a more complex project: a **DC motor speed controller**. This project required careful consideration of power and signal traces. I learned about **Pulse Width Modulation (PWM)** and how to route power-carrying traces to be wider and separate them from sensitive signal lines to prevent interference. This project was a great way to consolidate my KiCad skills on a real-world, functional circuit.</p>
+                        <div class="topics-list">
+                            <h4>Project Steps & Skills Developed:</h4>
+                            <ul>
+                                <li>Designing the schematic for a DC motor speed controller.</li>
+                                <li>Implementing PWM in the circuit design.</li>
+                                <li>Applying advanced routing techniques for power and signal lines.</li>
+                                <li>Generating manufacturing files, including Gerber and drill files.</li>
+                                <li>Final review and documentation of the design.</li>
+                            </ul>
+                        </div>
+                        <div class="day-image-container">
+                            <img src="./3d3.jpg" alt="A PCB for a DC motor speed controller." class="day-image">
+                            <p class="day-image-caption">Designing the PCB for a motor speed controller.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <h3>Learning Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="days-completed">3</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="topics-covered">15+</div>
+                        <div class="stat-label">Topics Covered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="projects-done">2</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bar
+            const progressFill = document.getElementById('progress-fill');
+            setTimeout(() => {
+                progressFill.style.width = '100%'; 
+            }, 500);
+
+            // Smooth scrolling for index links
+            const indexLinks = document.querySelectorAll('.index-links a');
+            indexLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 20; 
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add animation to timeline items when they come into view
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light-theme');
+                themeToggleBtn.classList.remove('fa-moon');
+                themeToggleBtn.classList.add('fa-sun');
+            } else {
+                body.classList.add('light-theme');
+                themeToggleBtn.classList.remove('fa-sun');
+                themeToggleBtn.classList.add('fa-moon');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-theme');
+                
+                if (body.classList.contains('light-theme')) {
+                    themeToggleBtn.classList.remove('fa-sun');
+                    themeToggleBtn.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeToggleBtn.classList.remove('fa-moon');
+                    themeToggleBtn.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#8cdeff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 20,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#e2e8f0",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 200,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+</body>
+</html>

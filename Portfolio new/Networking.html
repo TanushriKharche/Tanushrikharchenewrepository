@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Journey - Networking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
+        :root {
+            /* Dark Theme Colors - More Vibrant */
+            --bg-color: #0c1015;
+            --nav-bg: rgba(13, 17, 23, 0.7);
+            --card-bg: #161b22;
+            --primary-color: #2a64c4; /* Brighter, more energetic blue */
+            --text-color: #e2e8f0;
+            --highlight-color: #d1d5db;
+            --accent-green: #5ad889;
+            --accent-purple: #9b59b6;
+            --accent-orange: #ff9f1c; /* Vibrant orange */
+            --button-hover: #4e83d8;
+            --button-primary: #2a64c4;
+            --button-secondary: #9b59b6;
+            --button-success: #5ad889;
+        }
+
+        /* Light Theme Colors (overrides) */
+        body.light-theme {
+            --bg-color: #f0f4f8;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --card-bg: #ffffff;
+            --primary-color: #2a64c4;
+            --text-color: #334155;
+            --highlight-color: #0f172a;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --button-hover: #60a5fa;
+            --button-primary: #2a64c4;
+            --button-secondary: #8b5cf6;
+            --button-success: #10b981;
+            color: var(--text-color);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-orange);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 50;
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .heading h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(45deg, var(--highlight-color), var(--text-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .heading span {
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-container {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        #theme-toggle {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.9rem 1.2rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        #theme-toggle:hover {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* Learning Journey Specific Styles */
+        .journey-hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 0;
+            margin-top: 0; /* Ensures there is no blank space at the top */
+        }
+        
+        .journey-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .journey-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--highlight-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            z-index: 1;
+            position: relative;
+        }
+
+        .journey-hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .timeline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 80%;
+            box-sizing: border-box;
+            margin-bottom: 4rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-orange);
+            border: 4px solid var(--primary-color);
+            top: 15px;
+            left: 50%;
+            margin-left: -12.5px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .tech-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .day-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .topics-list {
+            background-color: rgba(42, 100, 196, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .topics-list h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .topics-list ul {
+            padding-left: 1.5rem;
+        }
+
+        .topics-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .assignment-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--accent-green);
+            color: white;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .assignment-btn:hover {
+            background-color: #4ac978;
+        }
+
+        .index-sidebar {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-height: 70vh;
+            overflow-y: auto;
+            width: 250px;
+        }
+
+        .index-sidebar h3 {
+            margin-top: 0;
+            color: var(--accent-orange);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .index-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .index-links li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .index-links li:before {
+            content: "•";
+            color: var(--accent-orange);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+        .index-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0.8rem;
+            border-radius: 5px;
+            background-color: rgba(42, 100, 196, 0.05);
+            font-weight: 600;
+            border-left: 3px solid transparent;
+        }
+
+        .index-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(42, 100, 196, 0.1);
+            border-left: 3px solid var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .index-links .day-number {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #2d3748;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Remove old interactive demo styles to avoid confusion */
+        .code-example, .interactive-demo, .assignment-btn {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+            }
+
+            .index-sidebar {
+                position: static;
+                transform: none;
+                width: 100%;
+                max-height: none;
+                margin-bottom: 2rem;
+            }
+
+            .theme-toggle-container {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        .btn {
+            padding: 0.9rem 1.8rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--button-primary);
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+        }
+
+        .back-to-portfolio {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-to-portfolio:hover {
+            background-color: var(--button-hover);
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div id="particles-js"></div>
+    
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="fas fa-moon"></button>
+    </div>
+
+    <div class="main-container">
+        <section class="journey-hero">
+            <h1>My Learning Journey - Networking</h1>
+            <p>From fundamental concepts to practical applications in network administration and security.</p>
+            <a href="./index.html" class="back-to-portfolio">← Back to Portfolio</a>
+        </section>
+
+        <div class="timeline-container">
+            <div class="index-sidebar">
+                <h3>Learning Index</h3>
+                <ul class="index-links">
+                    <li><a href="#day1"><span class="day-number">1</span> Intro to Networking</a></li>
+                    <li><a href="#day2"><span class="day-number">2</span> Network & Data Types</a></li>
+                    <li><a href="#day3"><span class="day-number">3</span> The OSI Model</a></li>
+                    <li><a href="#day4"><span class="day-number">4</span> HTTP & DNS</a></li>
+                    <li><a href="#day5"><span class="day-number">5</span> OSI & DHCP Test</a></li>
+                    <li><a href="#day6"><span class="day-number">6</span> DHCP, ARP & ICMP</a></li>
+                    <li><a href="#day7"><span class="day-number">7</span> Project Submission</a></li>
+                </ul>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item" id="day1">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 1</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>Introduction to Networking</h3>
+                        <p>This day covered the basics of **data communication and networking**. I learned about the core components—sender, receiver, medium, and protocol—and the characteristics of data communication, such as speed and reliability. We also explored different types of communication (**simplex, half-duplex, full-duplex**) and data transmission (**analog and digital signals**).</p>
+                        <img src="./net.png" alt="Networking cables and routers" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Data Communication and Networking: What they are and their importance.</li>
+                                <li>Core Components: Sender, receiver, medium, and protocol.</li>
+                                <li>Characteristics of Data Communication: Speed, accuracy, and reliability.</li>
+                                <li>Types of Communication: Simplex, half-duplex, and full-duplex.</li>
+                                <li>Types of Data Transmission: Analog and digital signals.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day2">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 2</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>Network and Data Types</h3>
+                        <p>This session explored different network types and data classifications. We defined what a network is and distinguished between various types, including **LAN, WAN, MAN, and PAN**. We also covered fundamental networking concepts and the classifications of data: **oriented, observed, and inferred**.</p>
+                        <img src="./nettopo.png" alt="Network topology diagram" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Definition of a Network.</li>
+                                <li>Types of Networks: LAN, WAN, MAN, and PAN.</li>
+                                <li>Networking Concepts: Fundamental ideas and their importance.</li>
+                                <li>Types of Data: Oriented, observed, and inferred.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day3">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 3</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>The OSI Model</h3>
+                        <p>This day focused on the **OSI (Open Systems Interconnection) Model**, which explains how data moves through seven layers. I learned the function of each layer—**Physical, Data Link, Network, Transport, Session, Presentation, and Application**—and saw examples of the protocols that operate at each level. This model is a cornerstone of networking theory.</p>
+                        <img src="./netosi.png" alt="OSI model diagram" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>The seven layers: Physical, Data Link, Network, Transport, Session, Presentation, and Application.</li>
+                                <li>Understanding each layer's function in networking.</li>
+                                <li>Examples of protocols at each layer.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day4">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 4</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>HTTP Methods & Domain Name System (DNS)</h3>
+                        <p>This session covered web communication and the DNS for resolving addresses. I learned about the common **HTTP Methods** (**GET, POST, PUT, and DELETE**) that are used to interact with web servers. We also explored the crucial role of **DNS** in translating human-readable domain names into IP addresses, a process fundamental to how the internet works.</p>
+                        <img src="https://images.unsplash.com/photo-1549419389-c44f54de2710?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="DNS server and HTTP methods" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>HTTP Methods: GET, POST, PUT, and DELETE.</li>
+                                <li>DNS: Its role and function.</li>
+                                <li>How browsers use HTTP and DNS to load web pages.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day5">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 5</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>Test on OSI Model and DHCP</h3>
+                        <p>This day began with a comprehensive review and test of the **OSI Model** to solidify my understanding. Afterward, we moved on to a new protocol: **DHCP (Dynamic Host Configuration Protocol)**. I learned the concept of dynamic IP address assignment and how it allows devices to automatically get an IP address when connecting to a network, simplifying network administration.</p>
+                        <img src="./netdns.png" alt="Networking concepts and protocols" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Review of OSI Model layers.</li>
+                                <li>Introduction to DHCP (Dynamic Host Configuration Protocol).</li>
+                                <li>The concept of dynamic IP address assignment.</li>
+                                <li>Understanding how dynamic IP addressing works.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day6">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 6</h2>
+                            <span class="tech-badge">Networking</span>
+                        </div>
+                        <h3>DHCP Acknowledge, ARP & ICMP</h3>
+                        <p>This session covered several key protocols used for network communication and diagnostics. I learned the final step of the DHCP process, the **Acknowledge** message. We also explored **ARP (Address Resolution Protocol)**, which is vital for mapping IP addresses to physical MAC addresses on a local network, and **ICMP (Internet Control Message Protocol)**, a tool used for sending network error messages and diagnostics like the 'ping' command.</p>
+                        <img src="https://images.unsplash.com/photo-1558494949-a2e6f40c7419?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Networking protocols on a screen" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>DHCP Acknowledge: How a server confirms IP address assignment.</li>
+                                <li>ARP (Address Resolution Protocol): Maps IP addresses to MAC addresses.</li>
+                                <li>ICMP (Internet Control Message Protocol): Sends network error messages and diagnostics (e.g., ping).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" id="day7">
+                    <div class="timeline-content">
+                        <div class="day-header">
+                            <h2 class="day-title">Day 7</h2>
+                            <span class="tech-badge">Project</span>
+                        </div>
+                        <h3>Project Submission</h3>
+                        <p>The final day was dedicated to applying all the concepts I learned throughout the week. I submitted my "Batchit website" project, which served as a practical demonstration of my new skills. The day concluded with a mentor review and valuable feedback on the project, allowing me to see how networking principles tie into real-world applications.</p>
+                        <img src="https://images.unsplash.com/photo-1547466668-3f5f3e9c52b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=300&q=80" alt="Project submission and feedback session" class="day-image">
+                        <div class="topics-list">
+                            <h4>Topics Covered:</h4>
+                            <ul>
+                                <li>Submission of the Batchit website project.</li>
+                                <li>Mentor review and feedback.</li>
+                                <li>Application of networking concepts in the project.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <h3>Learning Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value" id="days-completed">7</div>
+                        <div class="stat-label">Days Completed</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="topics-covered">30+</div>
+                        <div class="stat-label">Topics Covered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="projects-done">1</div>
+                        <div class="stat-label">Project Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bar
+            const progressFill = document.getElementById('progress-fill');
+            setTimeout(() => {
+                progressFill.style.width = '100%'; 
+            }, 500);
+
+            // Smooth scrolling for index links
+            const indexLinks = document.querySelectorAll('.index-links a');
+            indexLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = 20; // Adjusted offset for better view
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Add animation to timeline items when they come into view
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            timelineItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+
+            // Theme toggle functionality
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Load saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.remove('light-theme');
+                themeToggleBtn.classList.remove('fa-moon');
+                themeToggleBtn.classList.add('fa-sun');
+            } else {
+                body.classList.add('light-theme');
+                themeToggleBtn.classList.remove('fa-sun');
+                themeToggleBtn.classList.add('fa-moon');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-theme');
+                
+                if (body.classList.contains('light-theme')) {
+                    themeToggleBtn.classList.remove('fa-sun');
+                    themeToggleBtn.classList.add('fa-moon');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    themeToggleBtn.classList.remove('fa-moon');
+                    themeToggleBtn.classList.add('fa-sun');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Initialize particles.js
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 100,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#8cdeff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": true,
+                            "speed": 20,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#e2e8f0",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 200,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+        });
+    </script>
+</body>
+</html>
